@@ -20,7 +20,17 @@ export default function Profile() {
       <div className="card p-4 shadow" style={{ width: "400px" }}>
         <h3 className="text-center mb-4">Profile</h3>
         {user ? (
-          <pre className="bg-light p-3 rounded">{JSON.stringify(user, null, 2)}</pre>
+          <div className="list-group">
+            <div className="list-group-item d-flex justify-content-between">
+              <strong>Name:</strong> <span>{user.name}</span>
+            </div>
+            <div className="list-group-item d-flex justify-content-between">
+              <strong>Email:</strong> <span>{user.email}</span>
+            </div>
+            <div className="list-group-item d-flex justify-content-between">
+              <strong>Role:</strong> <span>{user.role}</span>
+            </div>
+          </div>
         ) : (
           <p className="text-center">Loading...</p>
         )}
