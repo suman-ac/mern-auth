@@ -16,7 +16,14 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="d-flex justify-content-center align-items-start vh-100 bg-light pt-5">
+    <div
+      className="d-flex justify-content-center align-items-center bg-light"
+      style={{
+        minHeight: "calc(100vh - 250px)",
+        padding: "1rem",
+      }}
+    >
+      {" "}
       <div className="card p-4 shadow" style={{ width: "400px" }}>
         <h3 className="text-center mb-4">Profile</h3>
         {user ? (
@@ -35,7 +42,6 @@ export default function Profile() {
           <p className="text-center">Loading...</p>
         )}
       </div>
-
       {/* Bootstrap Modal */}
       {showModal && (
         <div
