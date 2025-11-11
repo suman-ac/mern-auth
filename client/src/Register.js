@@ -3,19 +3,38 @@ import axios from "axios";
 
 export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [message, setMessage] = useState({ text: "", type: "" }); // type: "success" or "danger"
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/api/auth/register", form);
-    alert("User registered! You can now log in.");
+    try {
+      await axios.post("http://localhost:5000/api/auth/register", form);
+      setMessage({ text: "User registered successfully! Redirecting to login...", type: "success" });
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
+    } catch (error) {
+      setMessage({
+        text: error.response?.data?.message || "Registration failed. Please try again.",
+        type: "danger",
+      });
+    }
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
       <div className="card p-4 shadow" style={{ width: "350px" }}>
         <h3 className="text-center mb-4">Register</h3>
+
+        {/* Message Above Form */}
+        {message.text && (
+          <div className={`alert alert-${message.type} text-center`} role="alert">
+            {message.text}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <input
@@ -49,8 +68,11 @@ export default function Register() {
             Register
           </button>
         </form>
+
         <div className="text-center mt-3">
-          <a href="/" className="text-decoration-none">Already have an account? Login</a>
+          <a href="/" className="text-decoration-none">
+            Already have an account? Login
+          </a>
         </div>
       </div>
     </div>
