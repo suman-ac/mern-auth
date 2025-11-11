@@ -27,7 +27,13 @@ export default function Login() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div
+  className="d-flex justify-content-center align-items-center bg-light"
+  style={{
+    minHeight: "calc(100vh - 250px)", 
+    padding: "1rem",
+  }}
+>
       <div className="card p-4 shadow" style={{ width: "350px" }}>
         <h3 className="text-center mb-4">Login</h3>
         {message.text && (

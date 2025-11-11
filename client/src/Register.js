@@ -5,32 +5,47 @@ export default function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [message, setMessage] = useState({ text: "", type: "" }); // type: "success" or "danger"
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/auth/register", form);
-      setMessage({ text: "User registered successfully! Redirecting to login...", type: "success" });
+      setMessage({
+        text: "User registered successfully! Redirecting to login...",
+        type: "success",
+      });
       setTimeout(() => {
         window.location.href = "/";
       }, 2000);
     } catch (error) {
       setMessage({
-        text: error.response?.data?.message || "Registration failed. Please try again.",
+        text:
+          error.response?.data?.message ||
+          "Registration failed. Please try again.",
         type: "danger",
       });
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div
+      className="d-flex justify-content-center align-items-center bg-light"
+      style={{
+        minHeight: "calc(100vh - 250px)",
+        padding: "1rem",
+      }}
+    >
       <div className="card p-4 shadow" style={{ width: "350px" }}>
         <h3 className="text-center mb-4">Register</h3>
 
         {/* Message Above Form */}
         {message.text && (
-          <div className={`alert alert-${message.type} text-center`} role="alert">
+          <div
+            className={`alert alert-${message.type} text-center`}
+            role="alert"
+          >
             {message.text}
           </div>
         )}
